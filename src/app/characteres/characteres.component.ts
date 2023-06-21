@@ -47,11 +47,14 @@ export class CharacteresComponent implements OnInit {
     this.characterService.getCharactersPage(e.pageIndex).subscribe(
       resp => {
         this.characteres = resp.body.results
-        console.log('Cambio');
         console.log(resp.body.results);
 
 
       }
     )
+  }
+
+  addItem(newItem: any) {
+    this.characteres = newItem
   }
 }
