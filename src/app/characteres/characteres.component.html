@@ -1,6 +1,11 @@
-<app-filter-characters (newItemEvent)="addItem($event)"></app-filter-characters>
+<div class="ms-5 ps-5 mt-5 pt-3">
+    <div class="row justify-content-start">
+        <div class="col-lg-2">
+            <app-filter-characters (newItemEvent)="addItem($event)"></app-filter-characters>
+        </div>
+    
 
-<div class="container ">
+<div class="col-lg-9">
     <div class="row row-cols-auto justify-content-center col-lg-12">
 <div *ngFor=" let character of characteres" class="col mt-4 mb-4">
     <div class="card" style="width: 18rem;">
@@ -20,6 +25,7 @@
 
 </div>
 </div>
+</div>
 <mat-paginator #paginator
                class="demo-paginator"
                (page)="handlePageEvent($event)"
@@ -31,3 +37,4 @@
                [pageIndex]="pageIndex"
                aria-label="Select page">
 </mat-paginator>
+</div>

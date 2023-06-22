@@ -8,13 +8,15 @@ import { CharacteresComponent } from './characteres/characteres.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterCharactersComponent } from './characteres/filter-characters/filter-characters.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    CharacteresComponent
+    CharacteresComponent,
+    FilterCharactersComponent
   ],
   imports: [
     BrowserModule,

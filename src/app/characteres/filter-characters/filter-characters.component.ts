@@ -11,10 +11,23 @@ import { Output, EventEmitter } from '@angular/core';
 export class FilterCharactersComponent implements OnInit{
  
  constructor(private charactersService : CharacteresDataService, private elementRef :ElementRef,){}
-  ngOnInit(): void {
-   if (this.elementRef.nativeElement.querySelector('#rick')) {
-    console.log(this.elementRef.nativeElement.querySelector('#rick').checked)
-   }
+ 
+ ngOnInit(): void {//Obtener todas las especies para mostrarlas en el filtro y hacer que no se repitan las especies
+    let i = 1
+    let pages = true
+ 
+    let species = [] 
+      do {
+        this.charactersService.getCharactersPage(i).subscribe(
+          resp => {
+            species.push(resp.body.results)
+          }
+        )
+        i++
+      } while (i<42);
+
+    
+    
   }
  names: string[] = []
 
@@ -22,12 +35,53 @@ export class FilterCharactersComponent implements OnInit{
  charactersFiltered : ICharacter [] = []
   
   onFilterHandeler(){
-    console.log(this.elementRef.nativeElement.querySelector('#rick').checked)
-    this.charactersService.getCharactersFilter( this.elementRef.nativeElement.querySelector('#rick').value,'','','','').subscribe(
+    let checkboxesName = this.elementRef.nativeElement.querySelectorAll('input[name="name"]')
+    let checkboxesStatus = this.elementRef.nativeElement.querySelectorAll('input[name="status"]')
+    let checkboxesSpecies = this.elementRef.nativeElement.querySelectorAll('input[name="status"]')
+
+
+    let nameSelected = ''
+    let statusSelected = ''
+    let speciesSelected = ''
+    
+    for (var i = 0; i < checkboxesName.length; i++) {
+      if (checkboxesName[i].checked) {
+        nameSelected = checkboxesName[i].value;
+      }
+    }
+    
+    for (var i = 0; i < checkboxesStatus.length; i++) {
+      if (checkboxesStatus[i].checked) {
+        statusSelected = checkboxesStatus[i].value;
+      }
+    }
+    
+
+    this.charactersService.getCharactersFilter(nameSelected,statusSelected,'','','').subscribe(
       resp =>{
         this.charactersFiltered = resp.body.results
-        this.newItemEvent.emit(this.charactersFiltered)
+        this.newItemEvent.emit(this.charactersFiltered)//sends the array filtered by the checkboxs
       }
     )
   }
+
+  removeSelection() {
+    const inputs = this.elementRef.nativeElement.querySelectorAll('input');
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].checked) {
+       inputs[i].checked = false
+      }
+    }
+    this.charactersService.getCharacters().subscribe(
+      response => {
+        this.charactersFiltered = response.body.results
+        this.newItemEvent.emit(this.charactersFiltered)//sends the array filtered by the checkboxs
+        console.log(response.body.results);
+        
+      }
+    )
+    console.log(inputs);
+    
+  }
+  
 }
