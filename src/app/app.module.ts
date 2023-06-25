@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterCharactersComponent } from './characteres/filter-characters/filter-characters.component';
+import { HomeComponent } from './home/home.component';
+import { LocationComponent } from './location/location.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { FilterCharactersComponent } from './characteres/filter-characters/filte
     AppComponent,
     NavbarComponent,
     CharacteresComponent,
-    FilterCharactersComponent
+    FilterCharactersComponent,
+    HomeComponent,
+    LocationComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

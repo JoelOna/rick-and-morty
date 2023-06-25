@@ -16,17 +16,22 @@ export class FilterCharactersComponent implements OnInit{
     let i = 1
     let pages = true
  
-    let species = [] 
+    let species: any[] = [] 
+    let speciesName: any[] = [] 
       do {
         this.charactersService.getCharactersPage(i).subscribe(
           resp => {
             species.push(resp.body.results)
+            for (let index = 0; index < species.length; index++) {
+              // speciesName[index] = species[index].species
+              
+            }
           }
         )
         i++
       } while (i<42);
 
-    
+      console.log(species)
     
   }
  names: string[] = []
