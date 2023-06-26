@@ -19,7 +19,7 @@ export class CharacteresDataService {
     return this._http.get(environment.apiUrl+`character/?page=${page}`, { observe: 'response' });
   }
 
-  public getCharactersFilter(name:string, status:string, species:string, type:string, gender: string): Observable<HttpResponse<any>>{
-    return this._http.get(environment.apiUrl+`character/?name=${name}&status=${status}&species=${species}&type=${type}&gender=${gender}`, { observe: 'response' });
+  public getCharactersFilter(name:string, status:string, species:string, gender: string): Observable<HttpResponse<any>>{
+    return this._http.get(environment.apiUrl+`character/?name=${name}&status=${status}&species=${species}&gender=${gender}`, { observe: 'response' });
   }
 }

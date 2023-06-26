@@ -3,6 +3,7 @@ import { CharacteresDataService } from '../services/characteres-data.service';
 import { ICharacter } from '../interfaces/icharacter';
 import { PageEvent } from '@angular/material/paginator';
 
+
 @Component({
   selector: 'app-characteres',
   templateUrl: './characteres.component.html',
@@ -53,7 +54,7 @@ export class CharacteresComponent implements OnInit {
       }
     )
   }
-
+  errorMessage : string =''
   addItem(newItem: any) {
     this.characteres = newItem
   }

@@ -12,6 +12,7 @@ import { FilterCharactersComponent } from './characteres/filter-characters/filte
 import { HomeComponent } from './home/home.component';
 import { LocationComponent } from './location/location.component';
 import { FooterComponent } from './footer/footer.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { FooterComponent } from './footer/footer.component';
     AppRoutingModule,
     HttpClientModule,
     MatPaginatorModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

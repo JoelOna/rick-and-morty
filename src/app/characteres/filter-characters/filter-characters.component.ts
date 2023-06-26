@@ -2,39 +2,21 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { CharacteresDataService } from 'src/app/services/characteres-data.service';
 import { ICharacter } from '../../interfaces/icharacter';
 import { Output, EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-filter-characters',
   templateUrl: './filter-characters.component.html',
   styleUrls: ['./filter-characters.component.scss']
 })
-export class FilterCharactersComponent implements OnInit{
+export class FilterCharactersComponent{
  
- constructor(private charactersService : CharacteresDataService, private elementRef :ElementRef,){}
+ constructor(private charactersService : CharacteresDataService, private elementRef :ElementRef,private snackBar: MatSnackBar){}
  
- ngOnInit(): void {//Obtener todas las especies para mostrarlas en el filtro y hacer que no se repitan las especies
-    let i = 1
-    let pages = true
- 
-    let species: any[] = [] 
-    let speciesName: any[] = [] 
-      do {
-        this.charactersService.getCharactersPage(i).subscribe(
-          resp => {
-            species.push(resp.body.results)
-            for (let index = 0; index < species.length; index++) {
-              // speciesName[index] = species[index].species
-              
-            }
-          }
-        )
-        i++
-      } while (i<42);
 
-      console.log(species)
-    
-  }
  names: string[] = []
+
 
  @Output() newItemEvent = new EventEmitter<any>();
  charactersFiltered : ICharacter [] = []
@@ -42,12 +24,14 @@ export class FilterCharactersComponent implements OnInit{
   onFilterHandeler(){
     let checkboxesName = this.elementRef.nativeElement.querySelectorAll('input[name="name"]')
     let checkboxesStatus = this.elementRef.nativeElement.querySelectorAll('input[name="status"]')
-    let checkboxesSpecies = this.elementRef.nativeElement.querySelectorAll('input[name="status"]')
+    let checkboxesSpecies = this.elementRef.nativeElement.querySelectorAll('input[name="species"]')
+    let checkboxesGender = this.elementRef.nativeElement.querySelectorAll('input[name="gender"]')
 
 
     let nameSelected = ''
     let statusSelected = ''
     let speciesSelected = ''
+    let genderSelected = ''
     
     for (var i = 0; i < checkboxesName.length; i++) {
       if (checkboxesName[i].checked) {
@@ -60,14 +44,34 @@ export class FilterCharactersComponent implements OnInit{
         statusSelected = checkboxesStatus[i].value;
       }
     }
+
+    for (var i = 0; i < checkboxesSpecies.length; i++) {
+      if (checkboxesSpecies[i].checked) {
+        speciesSelected = checkboxesSpecies[i].value;
+      }
+    }
+
+    for (var i = 0; i < checkboxesGender.length; i++) {
+      if (checkboxesGender[i].checked) {
+        genderSelected = checkboxesGender[i].value;
+      }
+    }
     
 
-    this.charactersService.getCharactersFilter(nameSelected,statusSelected,'','','').subscribe(
+    this.charactersService.getCharactersFilter(nameSelected,statusSelected,speciesSelected,genderSelected).subscribe(
       resp =>{
         this.charactersFiltered = resp.body.results
         this.newItemEvent.emit(this.charactersFiltered)//sends the array filtered by the checkboxs
+      },error =>{
+        this.openSnackBar('Not found')
       }
+      
     )
+  }
+  openSnackBar(message:string) {
+    this.snackBar.open(message,'Ok',{
+      duration: 4000,
+    })
   }
 
   removeSelection() {
