@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { LocationComponent } from './location/location.component';
 import { FooterComponent } from './footer/footer.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CharacterViewComponent } from './characteres/character-view/character-view.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     FilterCharactersComponent,
     HomeComponent,
     LocationComponent,
-    FooterComponent
+    FooterComponent,
+    CharacterViewComponent
   ],
   imports: [
     BrowserModule,

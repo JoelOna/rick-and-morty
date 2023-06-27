@@ -1,32 +1,58 @@
-<div class="ms-5 ps-5 mt-5 pt-3">
-    <div class="row justify-content-start">
-        <div class="col-lg-2">
-            <app-filter-characters (newItemEvent)="addItem($event)"></app-filter-characters>
+<div class="container">
+<div class=" mt-5 pt-3 d-flex ">
+    <div class="row justify-content-start ">
+        <div class="col col-lg-2 ">
+            <app-filter-characters [page]="pageIndex" (newItemEvent)="addItem($event)" class="w-25"></app-filter-characters>
         </div>
-        <div class="col-lg-9">
-            <div class="row row-cols-auto justify-content-center col-lg-12">
+        <div class="col col-lg-10">
+            <div class="row row-cols-auto justify-content-center ">
                 <div *ngFor=" let character of characteres" class="col mt-4 mb-4">
-                    <div class="card" style="width: 18rem;">
+                    <a [routerLink]="['/characteres/character',character.id]"><div class="card" style="width: 18rem;">
                         <img src="{{character.image}}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{{character.name}}</li>
-                                <li *ngIf="character.status == 'Alive'" class="list-group-item"><i
-                                        class="fa-solid fa-heart"></i> {{character.status}}</li>
-                                <li *ngIf="character.status == 'Dead'" class="list-group-item"><i
-                                        class="fa-solid fa-skull"></i> {{character.status}}</li>
-                                <li class="list-group-item">{{character.species}}</li>
-                                <li *ngIf="character.type!=''" class="list-group-item">{{character.type}}</li>
-                                <li class="list-group-item">{{character.gender}}</li>
+                                <li class="list-group-item text-center">{{character.name}}</li>
                             </ul> 
                         </div>
                     </div>
+                </a>
             </div>
         </div>
     </div>
-   
+    <mat-paginator #paginator class="ms-0 ps-0 mb-0 pb-0 paginator" (page)="handlePageEvent($event)" [length]="length"
+    [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+    [hidePageSize]="hidePageSize" [pageIndex]="pageIndex" aria-label="Select page">
+    </mat-paginator>
 </div>
-<mat-paginator #paginator class="mb-0 pb-0" (page)="handlePageEvent($event)" [length]="length"
-[pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
-[hidePageSize]="hidePageSize" [pageIndex]="pageIndex" aria-label="Select page">
-</mat-paginator>
+
+</div>
+<!-- 
+<div class="container">
+    <div class="mt-5 pt-3 d-flex justify-content-start">
+        <div class="col-lg-2">
+            <app-filter-characters [page]="pageIndex" (newItemEvent)="addItem($event)"></app-filter-characters>
+        </div>
+        <div class="col-lg-10">
+            <div class="row row-cols-sm-1
+            row-cols-mb-2
+            row-cols-lg-4 justify-content-center">
+                <div *ngFor="let character of characteres" class="col mt-4 mb-4">
+                    <a [routerLink]="['/characteres/character', character.id]">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{character.image}}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item text-center">{{character.name}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-paginator #paginator class="mb-0 pb-0 paginator" (page)="handlePageEvent($event)" [length]="length"
+        [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+        [hidePageSize]="hidePageSize" [pageIndex]="pageIndex" aria-label="Select page">
+    </mat-paginator>
+</div> -->

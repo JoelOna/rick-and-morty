@@ -1,22 +1,42 @@
-<div class="container">
-   <p>Name</p>
-    <input type="radio" name="name" id="name" value="rick"> Rick <br>
-    <input type="radio" name="name" id="name" value="morty"> Morty <br>
-    <input type="radio" name="name" id="name" value="summer"> Summer <br>
-    <input type="radio" name="name" id="name" value="jerry"> Jerry <br>
-    <p>Status</p>
-    <input type="radio" name="status" id="status" value="alive"> Alive <br>
-    <input type="radio" name="status" id="status" value="dead"> Dead <br>
-    <input type="radio" name="status" id="status" value="unknown"> Unknown <br>
-    <p>Species</p>
-    <input type="radio" name="species" id="species" value="human"> Human <br>
-    <input type="radio" name="species" id="species" value="alien"> Alien <br>
 
-    <p>Gender</p>
-    <input type="radio" name="gender" id="gender" value="male"> Male <br>
-    <input type="radio" name="gender" id="gender" value="female"> Female <br>
-    <input type="radio" name="gender" id="gender" value="genderless"> Genderless <br>
-    <input type="radio" name="gender" id="gender" value="unknown"> Unknown <br>
-    <button type="radio" (click) =" onFilterHandeler()">Filter</button>
-    <button  (click) ="removeSelection()">Clean</button>
-</div>
+    <div class="name-filter">
+        <label class="pb-2">Name</label>
+    </div>
+    <div class="form-check form-switch mt-3">
+        <input type="radio" name="name" id="name" value="rick" class="form-check-input"> Rick <br>
+        <input type="radio" name="name" id="name" value="morty" class="form-check-input"> Morty <br>
+        <input type="radio" name="name" id="name" value="summer" class="form-check-input"> Summer <br>
+        <input type="radio" name="name" id="name" value="jerry" class="form-check-input"> Jerry <br>
+    </div>
+    <div class="name-filter mt-3">
+        <label class="pb-2">Status</label>
+    </div>
+    <div class="form-check form-switch mt-3">
+        <input type="radio" name="status" id="status" value="alive" class="form-check-input"> Alive <br>
+        <input type="radio" name="status" id="status" value="dead" class="form-check-input"> Dead <br>
+        <input type="radio" name="status" id="status" value="unknown" class="form-check-input"> Unknown <br>
+    </div>
+    <div class="name-filter mt-3">
+        <label class="pb-2">Species</label>
+    </div>
+    <div class="form-check form-switch mt-3">
+        <input type="radio" name="species" id="species" value="human" class="form-check-input"> Human <br>
+        <input type="radio" name="species" id="species" value="alien" class="form-check-input"> Alien <br>
+    </div>
+    <div class="name-filter mt-3">
+        <label class="pb-2">Gender</label>
+    </div>
+    <div class="form-check form-switch mt-3">
+        <input type="radio" name="gender" id="gender" value="male" class="form-check-input"> Male <br>
+        <input type="radio" name="gender" id="gender" value="female" class="form-check-input"> Female <br>
+        <input type="radio" name="gender" id="gender" value="genderless" class="form-check-input"> Genderless <br>
+        <input type="radio" name="gender" id="gender" value="unknown" class="form-check-input"> Unknown <br>
+    </div>
+    <div class="mt-4">
+        <div class="row">
+            <button type="radio" (click)=" onFilterHandeler()" class="btn btn-success">Filter</button>
+            <button (click)="removeSelection()" class="btn btn-secondary mt-4">Clear</button>
+        </div>
+       
+    </div>
+    

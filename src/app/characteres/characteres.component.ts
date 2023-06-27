@@ -50,7 +50,6 @@ export class CharacteresComponent implements OnInit {
         this.characteres = resp.body.results
         console.log(resp.body.results);
 
-
       }
     )
   }

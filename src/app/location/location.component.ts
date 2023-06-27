@@ -26,10 +26,14 @@ export class LocationComponent implements OnInit{
       }
     )
   }
-
   length = 0
   pageSize = 0;
   pageIndex = 1;
+
+  hidePageSize = false;
+  showPageSizeOptions = true;
+  showFirstLastButtons = true;
+  disabled = false;
 
   pageEvent: PageEvent | undefined;
 

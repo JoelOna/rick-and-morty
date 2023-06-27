@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { CharacteresDataService } from 'src/app/services/characteres-data.service';
 import { ICharacter } from '../../interfaces/icharacter';
 import { Output, EventEmitter } from '@angular/core';
@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./filter-characters.component.scss']
 })
 export class FilterCharactersComponent{
+  @Input() page: any;
  
  constructor(private charactersService : CharacteresDataService, private elementRef :ElementRef,private snackBar: MatSnackBar){}
  
@@ -57,10 +58,13 @@ export class FilterCharactersComponent{
       }
     }
     
-
-    this.charactersService.getCharactersFilter(nameSelected,statusSelected,speciesSelected,genderSelected).subscribe(
+    console.log(this.page);
+    
+    this.charactersService.getCharactersFilter(nameSelected,statusSelected,speciesSelected,genderSelected,this.page).subscribe(
       resp =>{
         this.charactersFiltered = resp.body.results
+        console.log(this.charactersFiltered);
+        
         this.newItemEvent.emit(this.charactersFiltered)//sends the array filtered by the checkboxs
       },error =>{
         this.openSnackBar('Not found')

@@ -1,5 +1,5 @@
 export interface ICharacter {
-    id:BigInteger,
+    id:string,
     name:string,
     status:string,
     species:string,
