@@ -58,14 +58,24 @@ export class FilterCharactersComponent{
       }
     }
     
-    console.log(this.page);
     
     this.charactersService.getCharactersFilter(nameSelected,statusSelected,speciesSelected,genderSelected,this.page).subscribe(
       resp =>{
         this.charactersFiltered = resp.body.results
         console.log(this.charactersFiltered);
         
-        this.newItemEvent.emit(this.charactersFiltered)//sends the array filtered by the checkboxs
+        if (resp.body.info.pages != 1 ) {
+          fetch(resp.body.info.next)
+          .then(response => response.json())
+          .then(data => {
+            this.charactersFiltered.push(data.results)
+          })
+        }
+
+        console.log(this.charactersFiltered);
+        
+        this.newItemEvent.emit(resp.body)//sends the array filtered by the radio buttons
+        // this.newItemEvent.emit(true)
       },error =>{
         this.openSnackBar('Not found')
       }
@@ -88,8 +98,9 @@ export class FilterCharactersComponent{
     this.charactersService.getCharacters().subscribe(
       response => {
         this.charactersFiltered = response.body.results
-        this.newItemEvent.emit(this.charactersFiltered)//sends the array filtered by the checkboxs
+        this.newItemEvent.emit(response.body)//sends the array filtered by the checkboxs
         console.log(response.body.results);
+        // this.newItemEvent.emit(false)
         
       }
     )

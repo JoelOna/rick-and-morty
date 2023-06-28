@@ -30,7 +30,7 @@ export class CharacteresComponent implements OnInit {
 
 
   length = 0
-  pageSize = 0;
+  pageSize = 20;
   pageIndex = 1;
 
   hidePageSize = false;
@@ -54,7 +54,14 @@ export class CharacteresComponent implements OnInit {
     )
   }
   errorMessage : string =''
-  addItem(newItem: any) {
-    this.characteres = newItem
+
+  addItem(newItem: any) {    
+    this.characteres = newItem.results
+    // this.characteres.push(...newItem.results)
+    // this.characteres = newItem.results
+    console.log(this.characteres);
+    
+    this.length = newItem.info.count
+    this.pageSize = 20  
   }
 }
