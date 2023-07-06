@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CharacteresDataService } from '../services/characteres-data.service';
 import { ICharacter } from '../interfaces/icharacter';
 import { PageEvent } from '@angular/material/paginator';
@@ -11,9 +11,18 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class CharacteresComponent implements OnInit {
   constructor(private characterService: CharacteresDataService) { }
-  characteres: ICharacter[] = []
+  // characteres: ICharacter[] = []
+
+  @Input() search:boolean = true;
+  @Input() characteres: ICharacter[] = []
+
 
   ngOnInit(): void {
+    console.log(this.characteres);
+
+    // if (this.characteres.length > 0) {
+    //   this.characteres = this.characteres
+    // }else{
     this.characterService.getCharacters().subscribe(
       response => {
         if (response.body != null) {
@@ -55,13 +64,16 @@ export class CharacteresComponent implements OnInit {
   }
   errorMessage : string =''
 
-  addItem(newItem: any) {    
+  addItem(newItem: any) {
+    // console.log(search);
+    
     this.characteres = newItem.results
+    // this.search = search
     // this.characteres.push(...newItem.results)
     // this.characteres = newItem.results
-    console.log(this.characteres);
-    
+    console.log('This ',this.characteres);
+
     this.length = newItem.info.count
-    this.pageSize = 20  
+    this.pageSize = 20
   }
 }

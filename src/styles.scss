@@ -26,3 +26,11 @@ html, body {
   .paginator{
     background: none !important;
 }
+
+.card {
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}

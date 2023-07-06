@@ -12,19 +12,21 @@ export class HomeComponent implements OnInit{
   characteres : ICharacter [] = []
   title: string = 'Main characteres'
   pages : any ;
+
   ngOnInit(): void {
     this.charactreService.getCharacters().subscribe(
       response =>{ 
         if (response.body != null) {
-          this.characteres = response.body.results
-          this.characteres = this.characteres.slice(0,5)
+          this.characteres = response.body.results.slice(0,5)
+          console.log(this.characteres)
+          // this.characteres = this.characteres
           this.pages = response.body.info.pages
           
         }
       }
     )
   }
-  
+
   searchMain(){
     const toSearch = this.elementRef.nativeElement.querySelector('#searchValue').value
     console.log(toSearch);
@@ -38,33 +40,60 @@ export class HomeComponent implements OnInit{
     })
     console.log(this.characteres);
     let stop = false
-    do{
-      this.charactreService.getCharactersFilter(toSearch,'','','',this.pages).subscribe(
-        response=>{
-          this.characteres = response.body.results
-          stop = true
-          if (response.body.info.pages != 1 ) {
-            fetch(response.body.info.next)
-            .then(resp => resp.json())
-            .then(data => {
-              this.characteres.push(data.results)
-            })
+
+  
+        this.charactreService.getCharactersFilter(toSearch,'','','',this.pages).subscribe(
+          response=>{
+            this.characteres = response.body.results
+            stop = true
+            if (response.body.info.pages > 1 ) {
+              fetch(response.body.info.next)
+              .then(resp => resp.json())
+              .then(data => {
+                this.characteres.push(data.results)
+              })
+            }
+          
+          },
+          error=>{
+            this.charactreService.getCharactersFilter('',toSearch,'','',this.pages).subscribe(
+              resp =>{
+                if (resp.body.info.pages > 1 ) {
+                  fetch(resp.body.info.next)
+                  .then(resp => resp.json())
+                  .then(data => {
+                    this.characteres.push(data.results)
+                  })
+                }
+              },error=>{
+                this.charactreService.getCharactersFilter('','',toSearch,'',this.pages).subscribe(
+                  response =>{
+                    if (response.body.info.pages > 1 ) {
+                      fetch(response.body.info.next)
+                      .then(resp => resp.json())
+                      .then(data => {
+                        this.characteres.push(data.results)
+                      })
+                    }
+                  },error=>{
+                    this.charactreService.getCharactersFilter('','','',toSearch,this.pages).subscribe(
+                      response =>{
+                        if (response.body.info.pages > 1 ) {
+                          fetch(response.body.info.next)
+                          .then(resp => resp.json())
+                          .then(data => {
+                            this.characteres.push(data.results)
+                          })
+                        }
+                      })
+                  }
+                )
+              }
+            )
           }
-        
-        },
-        error=>{
-          this.charactreService.getCharactersFilter('',toSearch,'','',this.pages).subscribe(
+  
+        )
 
-          )
-        }
-
-      )
-
-      cont ++
-    }
-    while(cont < this.pages)
-    console.log(this.characteres);
-    
       
   }
 }

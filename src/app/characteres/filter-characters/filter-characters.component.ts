@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class FilterCharactersComponent{
   @Input() page: any;
- 
+
  constructor(private charactersService : CharacteresDataService, private elementRef :ElementRef,private snackBar: MatSnackBar){}
  
 
@@ -64,17 +64,18 @@ export class FilterCharactersComponent{
         this.charactersFiltered = resp.body.results
         console.log(this.charactersFiltered);
         
-        if (resp.body.info.pages != 1 ) {
+        if(resp.body.info.next != 'null' ) {
           fetch(resp.body.info.next)
           .then(response => response.json())
           .then(data => {
-            this.charactersFiltered.push(data.results)
+            this.charactersFiltered.push(...data.results)
           })
         }
 
         console.log(this.charactersFiltered);
         
-        this.newItemEvent.emit(resp.body)//sends the array filtered by the radio buttons
+        this.newItemEvent.emit(resp.body)
+        // this.newItemEvent.emit(true)//sends the array filtered by the radio buttons
         // this.newItemEvent.emit(true)
       },error =>{
         this.openSnackBar('Not found')
@@ -98,7 +99,8 @@ export class FilterCharactersComponent{
     this.charactersService.getCharacters().subscribe(
       response => {
         this.charactersFiltered = response.body.results
-        this.newItemEvent.emit(response.body)//sends the array filtered by the checkboxs
+        this.newItemEvent.emit(response.body)
+        // this.newItemEvent.emit(false))//sends the array filtered by the checkboxs
         console.log(response.body.results);
         // this.newItemEvent.emit(false)
         

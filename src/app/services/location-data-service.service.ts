@@ -15,11 +15,11 @@ export class LocationDataServiceService {
   }
 
   public getLocationsPage(page:any): Observable<HttpResponse<any>>{
-    return this._http.get(environment.apiUrl+`character/?page=${page}`, { observe: 'response' });
+    return this._http.get(environment.apiUrl+`location/?page=${page}`, { observe: 'response' });
   }
 
   public getLocationsFilter(name:string, type:string, dimension:string): Observable<HttpResponse<any>>{
-    return this._http.get(environment.apiUrl+`character/?name=${name}&stype=${type}&dimension=${dimension}`, { observe: 'response' });
+    return this._http.get(environment.apiUrl+`location/?name=${name}&stype=${type}&dimension=${dimension}`, { observe: 'response' });
   }
 
 }

@@ -1,13 +1,14 @@
 <div class="container">
 <div class=" mt-5 pt-3 d-flex ">
     <div class="row justify-content-start ">
-        <div class="col col-lg-2 ">
-            <app-filter-characters [page]="pageIndex" (newItemEvent)="addItem($event)" class="w-25"></app-filter-characters>
+        <div  class="col col-lg-2 ">
+            <app-filter-characters  [page]="pageIndex" (newItemEvent)="addItem($event)" class="w-25"></app-filter-characters>
         </div>
         <div class="col col-lg-10">
             <div class="row row-cols-auto justify-content-center ">
                 <div *ngFor=" let character of characteres" class="col mt-4 mb-4">
-                    <a [routerLink]="['/characteres/character',character.id]"><div class="card" style="width: 18rem;">
+                    <a [routerLink]="['/characteres/character',character.id]">
+                        <div class="card shadow" style="width: 18rem;">
                         <img src="{{character.image}}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
@@ -21,7 +22,7 @@
     </div>
     <mat-paginator #paginator class="ms-0 ps-0 mb-0 pb-0 paginator" (page)="handlePageEvent($event)" [length]="length"
     [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
-    [hidePageSize]="hidePageSize" [pageIndex]="pageIndex" aria-label="Select page">
+    [hidePageSize]="hidePageSize" [pageIndex]="pageIndex" aria-label="Select page " *ngIf="search">
     </mat-paginator>
 </div>
 

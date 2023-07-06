@@ -3,12 +3,23 @@
         <div class="col">
             <p>{{character.name}}</p>
         </div>
-        <div class="col">
-            <img src="{{character.image}}" alt="" srcset="">
-            
+        <div class="row align-items-start">
+            <div class="col">
+                <img src="{{character.image}}" alt="{{character.name}} Image" srcset="">
+            </div>
+            <div class="col">
+                <p>{{character.status}}</p>
+                <p>{{character.species}}</p>
+                <p>{{character.type}}</p>
+                <p>{{character.gender}}</p>
+                <p>{{character.origin.name}}</p>
+                <p>{{character.location.name}}</p>
+                <div class="episode-list">
+                    <a *ngFor="let episode of episodes" [routerLink]="['/episodes/episode', episode.id]">
+                        <label>{{episode.episode}}</label>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-   
-  
- 
 </div>

@@ -6,7 +6,7 @@
             </div>
         </div>
     </div> -->
-    <div class="container shadow min-vh-100 py-4">
+    <div class="container  min-vh-100 py-4">
         <div class="row">
             <div class="col-md-5 mx-auto">
                 <div class="input-group">
@@ -26,11 +26,20 @@
         
     </div>
     <div class="col-lg-12">
-        <div class="row row-cols-auto justify-content-center col-lg-12 ms-5 ps-5 mt-5 pt-3 ">
-            <div *ngFor="let character of characteres">
-                <img src="{{character.image}}" alt="{{character.name}}">
-                <p>{{character.name}}</p>
-            </div>
+        <div class="row row-cols-auto justify-content-center col-lg-12 mt-5 pt-3 ">
+            <div *ngFor="let character of characteres" class="col mt-4 mb-4">
+            <a [routerLink]="['/characteres/character',character.id]">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{character.image}}" alt="{{character.name}}" class="card-img-top">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-center">{{character.name}}</li>
+                        </ul> 
+                    </div>
+                </div>
+            </a>
+        </div>
+            <!-- <app-characteres [search]=false [characteres]=characteres > </app-characteres> -->
         </div>
     </div>
   

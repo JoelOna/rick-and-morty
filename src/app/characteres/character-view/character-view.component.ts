@@ -30,6 +30,8 @@ export class CharacterViewComponent implements OnInit {
     url: '',
     created: ''
   }
+  episodes : any[] = []
+
 
   ngOnInit(): void {
    const characterId = this.route.snapshot.paramMap.get('id')
@@ -37,6 +39,16 @@ export class CharacterViewComponent implements OnInit {
     this.characterService.getCharacter(characterId).subscribe(
       response =>{
         this.character = response.body
+       for (let index = 0; index < this.character.episode.length; index++) {
+          fetch(`https://rickandmortyapi.com/api/episode/${index+1}`)
+          .then(response => response.json())
+          .then(data => {
+            this.episodes.push(data);
+          
+          })
+      
+       }
+        
         console.log(this.character);
         
       }
