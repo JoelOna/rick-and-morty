@@ -15,6 +15,10 @@ export class EpisodesDataServiceService {
     return this._http.get(environment.apiUrl+'episode', { observe: 'response' });
   }
 
+  public getEpisode(id:any): Observable<HttpResponse<any>>{
+    return this._http.get(environment.apiUrl+`episode/${id}`, { observe: 'response' });
+  }
+
   public getEpisodesPage(page:any): Observable<HttpResponse<any>>{
     return this._http.get(environment.apiUrl+`episode/?page=${page}`, { observe: 'response' });
   }

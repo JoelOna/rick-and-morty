@@ -16,6 +16,7 @@ import { CharacterViewComponent } from './characteres/character-view/character-v
 import { EpisodesComponent } from './episodes/episodes.component';
 import { EpisodeViewComponent } from './episodes/episode-view/episode-view.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatPaginatorModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -152,6 +152,11 @@
     </div>
 </div> -->
 <div class="container">
+    <div class="row justify-content-start">
+        <div class="col mt-5">
+            <h2>Episodes</h2>
+        </div>
+    </div>
     <div class="mt-5 pt-3">
 <mat-accordion class="example-headers-align">
     <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
@@ -165,7 +170,7 @@
       <mat-panel-description>
         <div class="row row-cols-auto justify-content-center">
             <div *ngFor="let episode of season01" class="col mt-4 mb-4">
-                <a [routerLink]="['', episode.id]">
+                <a [routerLink]="['episode/', episode.id]">
                     <div class="card" style="width: 18rem;">
                         <p class="text-uppercase text-center pt-4">{{episode.name}}</p>
                         <div class="card-body">
@@ -182,7 +187,7 @@
     </mat-panel-description>
   
       <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
+        <button mat-button color="basic" (click)="nextStep()">Next</button>
       </mat-action-row>
     </mat-expansion-panel>
   
@@ -195,7 +200,7 @@
       <mat-panel-description>
         <div class="row row-cols-auto justify-content-center">
             <div *ngFor="let episode of season02" class="col mt-4 mb-4">
-                <a [routerLink]="['', episode.id]">
+                <a [routerLink]="['episode/', episode.id]">
                     <div class="card" style="width: 18rem;">
                         <p class="text-uppercase text-center pt-4">{{episode.name}}</p>
                         <div class="card-body">
@@ -213,8 +218,8 @@
   
       
       <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
+        <button mat-button color="primary" (click)="prevStep()">Previous</button>
+        <button mat-button color="basic" (click)="nextStep()">Next</button>
       </mat-action-row>
     </mat-expansion-panel>
     
@@ -227,7 +232,7 @@
         <mat-panel-description>
           <div class="row row-cols-auto justify-content-center">
               <div *ngFor="let episode of season03" class="col mt-4 mb-4">
-                  <a [routerLink]="['', episode.id]">
+                <a [routerLink]="['episode/', episode.id]">
                       <div class="card" style="width: 18rem;">
                           <p class="text-uppercase text-center pt-4">{{episode.name}}</p>
                           <div class="card-body">
@@ -245,8 +250,8 @@
     
         
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
+          <button mat-button color="primary" (click)="prevStep()">Previous</button>
+          <button mat-button color="basic" (click)="nextStep()">Next</button>
         </mat-action-row>
       </mat-expansion-panel>
       <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle="true">
@@ -258,7 +263,7 @@
         <mat-panel-description>
           <div class="row row-cols-auto justify-content-center">
               <div *ngFor="let episode of season04" class="col mt-4 mb-4">
-                  <a [routerLink]="['', episode.id]">
+                <a [routerLink]="['episode/', episode.id]">
                       <div class="card" style="width: 18rem;">
                           <p class="text-uppercase text-center pt-4">{{episode.name}}</p>
                           <div class="card-body">
@@ -276,8 +281,8 @@
     
         
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
+          <button mat-button color="primary" (click)="prevStep()">Previous</button>
+          <button mat-button color="basic" (click)="nextStep()">Next</button>
         </mat-action-row>
       </mat-expansion-panel>
   
@@ -291,7 +296,7 @@
       <mat-panel-description>
         <div class="row row-cols-auto justify-content-center">
             <div *ngFor="let episode of season05" class="col mt-4 mb-4">
-                <a [routerLink]="['', episode.id]">
+                <a [routerLink]="['episode/', episode.id]">
                     <div class="card" style="width: 18rem;">
                         <p class="text-uppercase text-center pt-4">{{episode.name}}</p>
                         <div class="card-body">
@@ -308,8 +313,8 @@
     </mat-panel-description>
   
       <mat-action-row>
-        <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">End</button>
+        <button mat-button color="primary" (click)="prevStep()">Previous</button>
+        <button mat-button color="basic" (click)="nextStep()">End</button>
       </mat-action-row>
     </mat-expansion-panel>
   
