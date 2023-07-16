@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // import { ICharacter } from 'src/app/interfaces/icharacter';
 import { EpisodesDataServiceService } from 'src/app/services/episodes-data-service.service';
 import { IEpisode } from '../../interfaces/iepisode'
@@ -9,62 +9,101 @@ import { IEpisode } from '../../interfaces/iepisode'
   templateUrl: './episode-view.component.html',
   styleUrls: ['./episode-view.component.scss']
 })
-export class EpisodeViewComponent implements OnInit{
-  constructor(private episodeService : EpisodesDataServiceService, private route: ActivatedRoute){}
-   episode : IEpisode ={
-    id : '',
-    name:'',
-    air_date : '',
+export class EpisodeViewComponent implements OnInit {
+  constructor(private episodeService: EpisodesDataServiceService, private route: ActivatedRoute, private router: Router) { }
+  episode: IEpisode = {
+    id: '',
+    name: '',
+    air_date: '',
     episode: '',
-    characters : [],
-    url:'',
+    characters: [],
+    url: '',
     created: ''
-   }
+  }
 
-   characteres : any[] = []
+  characteres: any[] = []
 
-   idEpisode: number = parseInt(this.route.snapshot.paramMap.get('id') || '1');
+  idEpisode: number = parseInt(this.route.snapshot.paramMap.get('id') || '1');
 
+  fetchEpisodeCharacter(characteres: any[]) {
+
+    characteres.forEach(element => {
+      fetch(element)
+        .then(response => response.json())
+        .then(data => {
+          this.characteres.push(data)
+        })
+    });
+
+  }
 
   ngOnInit(): void {
 
     this.episodeService.getEpisode(this.idEpisode).subscribe(
-      response=>{
+      response => {
         console.log(response.body);
-        
+
         if (response.body != null) {
           this.episode = response.body
           console.log(this.episode.characters);
-          
 
-         this.episode.characters.forEach(character => {
-           console.log(character);
-           
-           fetch(character)
-           .then(response => response.json())
-           .then(data=>{
-            console.log(data);
-            
-             this.characteres.push(data)
-           })
-         });
+          this.fetchEpisodeCharacter(this.episode.characters)
+
         }
       }
     )
   }
 
-  nextEpisode(){
 
-    this.idEpisode = this.idEpisode ? this.idEpisode+=1 : this.idEpisode
+
+  nextEpisode() {
+
+    this.idEpisode += 1
     console.log(this.idEpisode);
-    
+
+
     this.episodeService.getEpisode(this.idEpisode).subscribe(
-      response=>{
+      response => {
         if (response.body != null) {
+          console.log(response.body);
+
           this.episode = response.body
-          
+          this.characteres = [];
+
+          this.fetchEpisodeCharacter(response.body.characters)
+
         }
       }
     )
+    this.router.navigate(['episodes/episode/', this.idEpisode]);
+  }
+
+  end : boolean = false
+  prevEpisode() {
+    if (this.idEpisode == 1) {
+    this.end = true
+    }
+    this.end = false
+    this.idEpisode -=1
+    console.log(this.idEpisode);
+
+
+    this.episodeService.getEpisode(this.idEpisode).subscribe(
+      response => {
+        if (response.body != null) {
+          console.log(response.body);
+
+          this.episode = response.body
+          this.characteres = [];
+
+          this.fetchEpisodeCharacter(response.body.characters)
+
+        }
+      }
+    )
+    this.router.navigate(['episodes/episode/', this.idEpisode]);
   }
 }
+
+
+

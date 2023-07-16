@@ -32,7 +32,8 @@
     </div>
     <div class="row">
         <div class="col justify-content-start">
-            <a href="">Previous episode</a>
+            <button  *ngIf="end" disabled (click)="prevEpisode()">Previous episode</button>
+            <button  *ngIf="!end"  (click)="prevEpisode()">Previous episode</button>
         </div>
         <div class="col justify-content-end">
             <button (click)="nextEpisode()">Next episode</button>
