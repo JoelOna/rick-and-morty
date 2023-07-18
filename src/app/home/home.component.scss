@@ -1,3 +1,22 @@
 a{
     text-decoration: none !important;
 }
+.btn-outline-secondary {
+    border: none !important;
+    &:hover {
+        background-color: transparent !important;
+    }
+}
+#searchValue{
+    background-color: transparent !important;
+    border-bottom: 1px solid white;
+    color: white;
+    &::placeholder{
+        color: white;
+    }
+}
+.reload{
+    background-color: transparent !important;
+    color: white !important;
+    border: none !important;
+}

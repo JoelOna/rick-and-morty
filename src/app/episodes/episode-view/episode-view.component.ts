@@ -80,8 +80,10 @@ export class EpisodeViewComponent implements OnInit {
 
   end : boolean = false
   prevEpisode() {
-    if (this.idEpisode == 1) {
+   
+    if (this.idEpisode <= 0) {
     this.end = true
+    this.idEpisode =  1
     }
     this.end = false
     this.idEpisode -=1
@@ -91,14 +93,19 @@ export class EpisodeViewComponent implements OnInit {
     this.episodeService.getEpisode(this.idEpisode).subscribe(
       response => {
         if (response.body != null) {
+          this.end =false
           console.log(response.body);
 
           this.episode = response.body
           this.characteres = [];
 
           this.fetchEpisodeCharacter(response.body.characters)
+      
 
         }
+      },error =>{
+          this.end = true;
+          this.router.navigate(['episodes/episode/', 1]);
       }
     )
     this.router.navigate(['episodes/episode/', this.idEpisode]);

@@ -24,6 +24,6 @@ export class EpisodesDataServiceService {
   }
 
   public getEpisodesFiltered(name:string, episode:string,): Observable<HttpResponse<any>>{
-    return this._http.get(environment.apiUrl+`location/?name=${name}&episode=${episode}`, { observe: 'response' });
+    return this._http.get(environment.apiUrl+`episode/?name=${name}&episode=${episode}`, { observe: 'response' });
   }
 }
