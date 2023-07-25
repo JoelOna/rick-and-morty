@@ -54,24 +54,57 @@ export class CharacteresComponent implements OnInit {
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
+    if (this.filtered) {
+ fetch(this.query)
+ .then(resp => resp.json())
+ .then(data =>{
+  if(data.info.next != this.query && data.info.next != null) {
+    this.characterService.getCharacteresFilQuery(data.info.next).subscribe(
+      response =>{
+        this.characteres = response.body.results
+        console.log('Filtro',this.characteres)
+      }
+    )
+  }
+  // else{
+  //   this.characterService.getCharacteresFilQuery(this.query).subscribe(
+  //     response =>{
+  //       this.characteres = response.body.results
+  //       console.log('Filtro',this.characteres)
+  //     }
+  //   )
+  // }
+ })
+        
+
+   console.log('FILTRO');
+      
+    }else{
     this.characterService.getCharactersPage(e.pageIndex).subscribe(
       resp => {
         this.characteres = resp.body.results
         console.log(resp.body.results);
 
       }
-    )
+    )}
   }
   errorMessage : string =''
-
+filtered: boolean = false
+query: string = ''
   addItem(newItem: any) {
     // console.log(search);
+    if (this.characteres.length != newItem.info.count) {
+      this.characteres = newItem.results
+      this.filtered = true
+    }
     
-    this.characteres = newItem.results
     // this.search = search
     // this.characteres.push(...newItem.results)
     // this.characteres = newItem.results
     console.log('This ',this.characteres);
+    if(newItem.info.next != null ) {
+      this.query = newItem.info.next
+    }
 
     this.length = newItem.info.count
     this.pageSize = 20

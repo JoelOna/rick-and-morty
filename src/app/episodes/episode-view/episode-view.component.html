@@ -32,14 +32,14 @@
     </div>
     <div class="row">
         <div class="col justify-content-start">
-            <button  *ngIf="end" disabled >Previous episode</button>
-            <button  *ngIf="!end"  (click)="prevEpisode()">Previous episode</button>
+            <button  *ngIf="end" disabled ><i class="fas fa-angle-double-left"></i></button>
+            <button  *ngIf="!end"  (click)="prevEpisode()"><i class="fas fa-angle-double-left"></i></button>
         </div>
         <div class="col">
 
         </div>
-        <div class="col justify-content-end ">
-            <button (click)="nextEpisode()">Next episode</button>
+        <div class="col d-flex justify-content-end ">
+            <button (click)="nextEpisode()"><i class="fas fa-angle-double-right"></i></button>
         </div>
     
     </div>

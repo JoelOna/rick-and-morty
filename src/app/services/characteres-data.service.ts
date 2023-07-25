@@ -25,4 +25,7 @@ export class CharacteresDataService {
   public getCharactersFilter(name:string, status:string, species:string, gender: string, page:any): Observable<HttpResponse<any>>{
     return this._http.get(environment.apiUrl+`character/?name=${name}&status=${status}&species=${species}&gender=${gender}&page=${page}`, { observe: 'response' });
   }
+  public getCharacteresFilQuery(query:string): Observable<HttpResponse<any>>{
+    return this._http.get(query, { observe: 'response' });
+  }
 }

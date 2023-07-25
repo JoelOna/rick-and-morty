@@ -64,7 +64,7 @@ export class FilterCharactersComponent{
         this.charactersFiltered = resp.body.results
         console.log(this.charactersFiltered);
         
-        if(resp.body.info.next != 'null' ) {
+        if(resp.body.info.next != null ) {
           fetch(resp.body.info.next)
           .then(response => response.json())
           .then(data => {
