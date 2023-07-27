@@ -11,12 +11,33 @@ a{
     background-color: transparent !important;
     border-bottom: 1px solid white;
     color: white;
+    box-shadow: none;
     &::placeholder{
         color: white;
+    }
+    &:focus{
+        border-color: #69c8ecff !important;
+   
     }
 }
 .reload{
     background-color: transparent !important;
     color: white !important;
     border: none !important;
+    &:hover{
+        animation: reload 1.2s linear infinite;
+    }
 }
+.list-group-item{
+    &:hover{
+        color: #97ce4c !important;
+    }
+}
+@keyframes reload {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

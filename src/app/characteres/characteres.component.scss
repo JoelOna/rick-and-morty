@@ -2,4 +2,8 @@ a{
     text-decoration: none !important;
 }
 
-  
+.list-group-item{
+    &:hover{
+        color: #97ce4c !important;
+    }
+}

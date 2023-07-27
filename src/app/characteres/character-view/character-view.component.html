@@ -7,15 +7,27 @@
             <div class="col">
                 <img src="{{character.image}}" alt="{{character.name}} Image" srcset="">
             </div>
+            <section class="col card shadow pb-5">
+                <h3 class="text-uppercase text-center pt-5">Description</h3>
+                <div class="row col mt-5 text-center">
+                    <div class="col">
+                        <p><strong>Status: </strong>{{character.status}}</p>
+                        <p><strong>Specie: </strong>{{character.species}}</p>
+                        <p><strong>Gender: </strong>{{character.gender}}</p>
+                    </div>
+                    <div class="col ">
+                        <p *ngIf="character.type"><strong>Type: </strong>{{character.type}}</p>
+                        <p><strong>Origin: </strong>{{character.origin.name}}</p>
+                        <p><strong>Last seen: </strong>{{character.location.name}}</p>
+                    </div>
+                </div>  
+                
+            </section>
+        </div>
+        <div class="row mt-5 pt-4">
             <div class="col">
-                <p><strong>Status: </strong>{{character.status}}</p>
-                <p><strong>Specie: </strong>{{character.species}}</p>
-                <p><strong>Type: </strong>{{character.type}}</p>
-                <p><strong>Gender: </strong>{{character.gender}}</p>
-                <p><strong>Origin: </strong>{{character.origin.name}}</p>
-                <p><strong>Last seen: </strong>{{character.location.name}}</p>
-                <div class="episode-list">
-                    <strong>Episodes: </strong>
+                <h3 class="text-center text-uppercase">Episodes</h3>
+                <div class="episode-list mt-3">
                     <a *ngFor="let episode of episodes" [routerLink]="['/episodes/episode', episode.id]">
                         <label>{{episode.episode}}</label>
                     </a>

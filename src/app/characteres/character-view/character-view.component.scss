@@ -11,3 +11,15 @@ img{
     width: 25rem;
     height: 25rem ;
 }
+a{
+    color: white !important;
+    &:hover{
+        color: #69c8ecff !important;
+   
+    }
+}
+
+section.card{
+    height: 400px !important;
+    pointer-events: none !important;
+}
