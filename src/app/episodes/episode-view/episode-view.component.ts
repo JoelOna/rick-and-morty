@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import { ICharacter } from 'src/app/interfaces/icharacter';
 import { EpisodesDataServiceService } from 'src/app/services/episodes-data-service.service';
 import { IEpisode } from '../../interfaces/iepisode'
+import { ICharacter } from 'src/app/interfaces/icharacter';
 
 @Component({
   selector: 'app-episode-view',
@@ -21,8 +22,8 @@ export class EpisodeViewComponent implements OnInit {
     created: ''
   }
 
-  characteres: any[] = []
-
+  characteres: ICharacter[] = []
+  episodeLength: any  
   idEpisode: number = parseInt(this.route.snapshot.paramMap.get('id') || '1');
 
   fetchEpisodeCharacter(characteres: any[]) {
@@ -38,7 +39,14 @@ export class EpisodeViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.episodeService.getEpisodes().subscribe(
+      response =>{
+        if (response.body != null) {
+          this.episodeLength = response.body.info.count
+        }
+      }
+    )
+     
     this.episodeService.getEpisode(this.idEpisode).subscribe(
       response => {
         console.log(response.body);
@@ -50,6 +58,33 @@ export class EpisodeViewComponent implements OnInit {
           this.fetchEpisodeCharacter(this.episode.characters)
 
         }
+      }, error =>{
+        if (this.idEpisode > this.episodeLength) {
+          this.episodeService.getEpisode(this.episodeLength).subscribe(
+            resp =>{
+              if (resp.body != null) {
+                this.episode = resp.body
+                this.characteres = [];
+      
+                this.fetchEpisodeCharacter(resp.body.characters)
+            }
+          }
+          )
+          this.router.navigate(['episodes/episode/', this.episodeLength]);
+          console.log('mas grande')
+        }else if (this.idEpisode <= 0) {
+          this.episodeService.getEpisode(1).subscribe(
+            resp =>{ 
+              if (resp.body != null) {
+                this.episode = resp.body
+                this.characteres = [];
+      
+                this.fetchEpisodeCharacter(resp.body.characters)
+              }
+            }
+          )
+          this.router.navigate(['episodes/episode/', 1]);
+        }
       }
     )
   }
@@ -57,11 +92,8 @@ export class EpisodeViewComponent implements OnInit {
 
 
   nextEpisode() {
-
-    this.idEpisode += 1
-    console.log(this.idEpisode);
-
-
+      this.idEpisode +=1
+      console.log(this.idEpisode);
     this.episodeService.getEpisode(this.idEpisode).subscribe(
       response => {
         if (response.body != null) {

@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { LocationComponent } from './location/location.component';
 import { EpisodesComponent } from './episodes/episodes.component';
 import { EpisodeViewComponent } from './episodes/episode-view/episode-view.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path:'characteres/character/:id', component: CharacterViewComponent},
   {path:'locations', component: LocationComponent},
   {path:'episodes', component: EpisodesComponent},
-  {path:'episodes/episode/:id', component: EpisodeViewComponent}
+  {path:'episodes/episode/:id', component: EpisodeViewComponent},
+  { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];
 
 @NgModule({
