@@ -18,6 +18,7 @@ import { EpisodeViewComponent } from './episodes/episode-view/episode-view.compo
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     CharacterViewComponent,
     EpisodesComponent,
     EpisodeViewComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

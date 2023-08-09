@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ICharacter } from 'src/app/interfaces/icharacter';
 import { CharacteresDataService } from 'src/app/services/characteres-data.service';
@@ -9,7 +10,7 @@ import { CharacteresDataService } from 'src/app/services/characteres-data.servic
   styleUrls: ['./character-view.component.scss']
 })
 export class CharacterViewComponent implements OnInit {
-  constructor(private characterService: CharacteresDataService ,private route: ActivatedRoute){}
+  constructor(private characterService: CharacteresDataService ,private route: ActivatedRoute,private titleService:Title){}
   character : ICharacter = {
     id: '',
     name: '',
@@ -31,7 +32,7 @@ export class CharacterViewComponent implements OnInit {
     created: ''
   }
   episodes : any[] = []
-
+ 
 
   ngOnInit(): void {
    const characterId = this.route.snapshot.paramMap.get('id')
@@ -39,6 +40,7 @@ export class CharacterViewComponent implements OnInit {
     this.characterService.getCharacter(characterId).subscribe(
       response =>{
         this.character = response.body
+        this.titleService.setTitle(this.character.name + ' | Rick and Morty')
        for (let index = 0; index < this.character.episode.length; index++) {
           fetch(`https://rickandmortyapi.com/api/episode/${index+1}`)
           .then(response => response.json())

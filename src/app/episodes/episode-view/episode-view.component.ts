@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EpisodesDataServiceService } from 'src/app/services/episodes-data-service.service';
 import { IEpisode } from '../../interfaces/iepisode'
 import { ICharacter } from 'src/app/interfaces/icharacter';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-episode-view',
@@ -11,7 +12,7 @@ import { ICharacter } from 'src/app/interfaces/icharacter';
   styleUrls: ['./episode-view.component.scss']
 })
 export class EpisodeViewComponent implements OnInit {
-  constructor(private episodeService: EpisodesDataServiceService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private episodeService: EpisodesDataServiceService, private route: ActivatedRoute, private router: Router,private titleService:Title) { }
   episode: IEpisode = {
     id: '',
     name: '',
@@ -25,6 +26,7 @@ export class EpisodeViewComponent implements OnInit {
   characteres: ICharacter[] = []
   episodeLength: any  
   idEpisode: number = parseInt(this.route.snapshot.paramMap.get('id') || '1');
+  loading : boolean = true
 
   fetchEpisodeCharacter(characteres: any[]) {
 
@@ -46,7 +48,7 @@ export class EpisodeViewComponent implements OnInit {
         }
       }
     )
-     
+     console.log(this.episodeLength)
     this.episodeService.getEpisode(this.idEpisode).subscribe(
       response => {
         console.log(response.body);
@@ -54,7 +56,7 @@ export class EpisodeViewComponent implements OnInit {
         if (response.body != null) {
           this.episode = response.body
           console.log(this.episode.characters);
-
+          this.titleService.setTitle(this.episode.name + ' | Rick and Morty')
           this.fetchEpisodeCharacter(this.episode.characters)
 
         }
@@ -65,7 +67,7 @@ export class EpisodeViewComponent implements OnInit {
               if (resp.body != null) {
                 this.episode = resp.body
                 this.characteres = [];
-      
+                this.titleService.setTitle(this.episode.name + ' | Rick and Morty')
                 this.fetchEpisodeCharacter(resp.body.characters)
             }
           }
@@ -78,6 +80,7 @@ export class EpisodeViewComponent implements OnInit {
               if (resp.body != null) {
                 this.episode = resp.body
                 this.characteres = [];
+                this.titleService.setTitle(this.episode.name + ' | Rick and Morty')
       
                 this.fetchEpisodeCharacter(resp.body.characters)
               }
@@ -87,6 +90,7 @@ export class EpisodeViewComponent implements OnInit {
         }
       }
     )
+    this.loading = false  
   }
 
 

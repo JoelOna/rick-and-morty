@@ -11,18 +11,12 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class CharacteresComponent implements OnInit {
   constructor(private characterService: CharacteresDataService) { }
-  // characteres: ICharacter[] = []
-
-  @Input() search:boolean = true;
+  @Input() search: boolean = true;
   @Input() characteres: ICharacter[] = []
 
 
   ngOnInit(): void {
     console.log(this.characteres);
-
-    // if (this.characteres.length > 0) {
-    //   this.characteres = this.characteres
-    // }else{
     this.characterService.getCharacters().subscribe(
       response => {
         if (response.body != null) {
@@ -40,7 +34,7 @@ export class CharacteresComponent implements OnInit {
 
   length = 0
   pageSize = 20;
-  pageIndex = 1;
+  pageIndex = 0;
 
   hidePageSize = false;
   showPageSizeOptions = true;
@@ -54,58 +48,64 @@ export class CharacteresComponent implements OnInit {
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
+
+
     if (this.filtered) {
- fetch(this.query)
- .then(resp => resp.json())
- .then(data =>{
-  if(data.info.next != this.query && data.info.next != null) {
-    this.characterService.getCharacteresFilQuery(data.info.next).subscribe(
-      response =>{
-        this.characteres = response.body.results
-        console.log('Filtro',this.characteres)
+      const prevPage = e.previousPageIndex ? e.previousPageIndex : 0
+      if (prevPage > e.pageIndex) {
+        console.log(this.queryBack)
+        fetch(this.queryBack)
+          .then(resp => resp.json())
+          .then(data => {
+            console.log('Data prev', data)
+            this.characteres = []
+            this.characteres = data.results
+          })
+      } else {
+        fetch(this.query)
+          .then(resp => resp.json())
+          .then(data => {
+            this.queryBack = data.info.prev
+            if (data.info.next != this.query && data.info.next != null) {
+              this.characterService.getCharacteresFilQuery(data.info.next).subscribe(
+                response => {
+                  this.characteres = response.body.results
+                  console.log('Filtro', this.characteres)
+                }
+              )
+            }
+          })
       }
-    )
-  }
-  // else{
-  //   this.characterService.getCharacteresFilQuery(this.query).subscribe(
-  //     response =>{
-  //       this.characteres = response.body.results
-  //       console.log('Filtro',this.characteres)
-  //     }
-  //   )
-  // }
- })
-        
 
-   console.log('FILTRO');
-      
-    }else{
-    this.characterService.getCharactersPage(e.pageIndex).subscribe(
-      resp => {
-        this.characteres = resp.body.results
-        console.log(resp.body.results);
 
-      }
-    )}
+      console.log('FILTRO');
+
+    } else {
+      this.characterService.getCharactersPage(e.pageIndex).subscribe(
+        resp => {
+          this.characteres = resp.body.results
+          console.log(resp.body.results);
+
+        }
+      )
+    }
   }
-  errorMessage : string =''
-filtered: boolean = false
-query: string = ''
+  errorMessage: string = ''
+  filtered: boolean = false
+  query: string = ''
+  queryBack: string = ''
   addItem(newItem: any) {
-    // console.log(search);
+
     if (this.characteres.length != newItem.info.count) {
       this.characteres = newItem.results
       this.filtered = true
     }
-    
-    // this.search = search
-    // this.characteres.push(...newItem.results)
-    // this.characteres = newItem.results
-    console.log('This ',this.characteres);
-    if(newItem.info.next != null ) {
+
+
+    if (newItem.info.next != null) {
       this.query = newItem.info.next
     }
-
+  
     this.length = newItem.info.count
     this.pageSize = 20
   }

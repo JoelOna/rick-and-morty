@@ -36,7 +36,16 @@ export class HomeComponent implements OnInit {
     this.title = this.titleCopy
     this.characteres = this.characteresCopy
   }
-
+  changeColor(isFocus:boolean){
+    const searchIcon = this.elementRef.nativeElement.querySelector('#searchIcon')
+    if (isFocus) {
+      searchIcon.style.color = '#69c8ecff'
+      console.log(true)
+    }
+    searchIcon.style.color = '#6c757d'
+    console.log(false)
+    // searchIcon.style.color = '#6c757d'? '#69c8ecff' : '##6c757d'
+  }
   searchMain() {
     const toSearch = this.elementRef.nativeElement.querySelector('#searchValue').value
     console.log(toSearch);

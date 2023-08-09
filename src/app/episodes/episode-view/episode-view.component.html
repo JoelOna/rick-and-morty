@@ -1,4 +1,5 @@
 <div class="container ">
+    <app-loader *ngIf="loading"></app-loader>
     <div class="row mt-5 pt-3">
         <h2 class="text-uppercase text-lg-start text-center ">{{episode.name}}</h2>
     </div>
@@ -31,12 +32,13 @@
     </div>
     <div class="row">
         <div class="col justify-content-start">
-            <button  *ngIf="episode.id <= '0 '" disabled ><i class="fas fa-angle-double-left"></i></button>
-            <button  *ngIf="episode.id >= '1'"  (click)="prevEpisode()"><i class="fas fa-angle-double-left"></i></button>
+            <button  *ngIf="episode.id < '0 '" disabled ><i class="fas fa-angle-double-left"></i></button>
+            <button  *ngIf="episode.id > '1'"  (click)="prevEpisode()"><i class="fas fa-angle-double-left"></i></button>
         </div>
         <div class="col d-flex justify-content-end ">
-            <button  *ngIf="episode.id >= episodeLength" disabled ><i class="fas fa-angle-double-right"></i></button>
-            <button *ngIf="episode.id <= episodeLength " (click)="nextEpisode()"><i class="fas fa-angle-double-right"></i></button>
+            <button  *ngIf="episode.id > episodeLength" disabled ><i class="fas fa-angle-double-right"></i></button>
+            <button *ngIf="episode.id < episodeLength " (click)="nextEpisode()"><i class="fas fa-angle-double-right"></i></button>
+          
         </div>
     
     </div>

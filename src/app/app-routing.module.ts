@@ -9,13 +9,13 @@ import { EpisodeViewComponent } from './episodes/episode-view/episode-view.compo
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
-  {path:'characteres', component: CharacteresComponent},
+  {path:'', component: HomeComponent,title: 'Home | Rick and Morty'},
+  {path:'characteres', component: CharacteresComponent, title: 'Characteres | Rick and Morty'},
   {path:'characteres/character/:id', component: CharacterViewComponent},
-  {path:'locations', component: LocationComponent},
-  {path:'episodes', component: EpisodesComponent},
+  {path:'locations', component: LocationComponent,title : 'Locations | Rick and Morty'},
+  {path:'episodes', component: EpisodesComponent, title: 'Episodes | Rick and Morty'},
   {path:'episodes/episode/:id', component: EpisodeViewComponent},
-  { path: '**', pathMatch: 'full', component: NotFoundComponent },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent , title: '404 Not found | Rick and Morty'},
 ];
 
 @NgModule({
