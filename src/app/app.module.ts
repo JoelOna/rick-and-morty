@@ -19,6 +19,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatButtonModule} from '@angular/material/button';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoaderComponent } from './loader/loader.component';
+import { AboutMeComponent } from './about-me/about-me.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { LoaderComponent } from './loader/loader.component';
     EpisodesComponent,
     EpisodeViewComponent,
     NotFoundComponent,
-    LoaderComponent
+    LoaderComponent,
+    AboutMeComponent
   ],
   imports: [
     BrowserModule,
