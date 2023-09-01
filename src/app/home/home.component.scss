@@ -41,3 +41,8 @@ a{
       transform: rotate(360deg);
     }
   }
+  @media screen and (max-width: 768px){
+    #searchValue{
+        margin-left: 1.75rem;
+    }
+  }

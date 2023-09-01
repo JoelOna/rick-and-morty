@@ -8,7 +8,7 @@
             <app-filter-characters  [page]="pageIndex" (newItemEvent)="addItem($event)" class="w-25"></app-filter-characters>
         </div>
         <div class="col col-lg-10">
-            <div class="row row-cols-auto justify-content-center ">
+            <div class="row row-cols-auto justify-content-center ms-2 ">
                 <div *ngFor=" let character of characteres" class="col mt-4 mb-4">
                     <a [routerLink]="['/characteres/character',character.id]">
                         <div class="card shadow" style="width: 18rem;">

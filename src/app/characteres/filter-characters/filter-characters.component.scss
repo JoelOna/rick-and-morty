@@ -1,3 +1,10 @@
 .name-filter{
     border-bottom: 1px solid white;
 }
+
+@media screen and (max-width:768px) {
+    .btn{
+   margin-left: 0.75rem !important;
+ 
+    }
+}
